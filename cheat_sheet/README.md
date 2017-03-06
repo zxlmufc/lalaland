@@ -1,3 +1,3 @@
-Python module cheat sheet
+Python Module Cheat Sheet
 
 
