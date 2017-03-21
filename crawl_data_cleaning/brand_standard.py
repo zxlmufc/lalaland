@@ -49,7 +49,7 @@ class LowerCaseConverter(BaseReplacer):
 
 class TrashWords(BaseReplacer):
     def __init__(self):
-        trash_words_reg = ['国产', '授权', '行货', '原装', '海淘', '新西兰',
+        trash_words_reg = ['授权', '行货', '原装', '海淘', '新西兰',
                            '法国', '香港', '港版', '澳洲', '英国',
                            '美国', '美版', '加拿大', '意大利', '德国',
                            '(荷兰(?!朵))', '日本', '韩国']
@@ -228,8 +228,7 @@ class DomainBrandMap:
         brand_mapping_frame.drop('name_found', 1, inplace=True)
 
         print('Saving Mapping DataFrame ... ')
-        brand_mapping_frame.to_csv(regex.sub(r'(/.+)((\.csv$)|(\.txt$))', r'', args.input) +
-                                   '/brand_mapping_frame_%s.csv' % datetime.datetime.now().strftime("%Y_%m_%d"), index=False)
+        brand_mapping_frame.to_csv('brand_mapping_frame_%s.csv' % datetime.datetime.now().strftime("%Y_%m_%d"), index=False)
 
         brand_mapping_frame['standard_brand'] = brand_mapping_frame.index
 
@@ -253,8 +252,7 @@ def main():
     print('Filling Blank Brand Names ...')
     AllData = fill_blank_brand(AllData, domain_list)
 
-    AllData.to_csv(regex.sub(r'(/.+)((\.csv$)|(\.txt$))', r'', args.input) + '/brand_standard_output_%s.csv'
-                   % datetime.datetime.now().strftime("%Y_%m_%d"), index=False)
+    AllData.to_csv('brand_standard_output_%s.csv' % datetime.datetime.now().strftime("%Y_%m_%d"), index=False)
 
     print('Done ... ')
 
@@ -267,7 +265,6 @@ if __name__ == '__main__':
     parser.add_argument('--input', type=str, help='Input DataFrame', )
     parser.add_argument('--column', type=str, help='Brand Column Name')
     parser.add_argument('--mapping', action='store_true', help='Standard from mapping table')
-    # parser.add_argument('--', type=int, help='specify fold')
-
     args = parser.parse_args()
+    
     main()
